@@ -12,6 +12,7 @@ public class BallController : MonoBehaviour
    private bool isGrounded;
    private Rigidbody _rigidbody;
 
+   private Vector3 _pos;
    private void Start()
    {
       _rigidbody = GetComponent<Rigidbody>();
@@ -20,6 +21,7 @@ public class BallController : MonoBehaviour
    private void Update()
    {
       CheckInput();
+      
    }
 
    private void CheckInput()
@@ -60,4 +62,34 @@ public class BallController : MonoBehaviour
    {
       isGrounded = false;
    }
+
+   private void OnTriggerEnter(Collider other)
+   {
+      Collectable collectable = other.GetComponent<Collectable>();   
+      bool isCollectable = collectable != null;
+
+      if (isCollectable)
+      {
+         collectable.Collect();   
+      }
+   }
+
+   public void Die()
+   {
+      Destroy(gameObject);
+   }
+   /*
+   private void SpawnAgain(Vector3 x, Vector3 y)
+   {
+      if (_rigidbody.transform.position.y > -10)
+      {
+         return;
+      }
+      else
+      {
+         _rigidbody
+      }
+   }
+   */
+   
 }
