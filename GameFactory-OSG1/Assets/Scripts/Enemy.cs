@@ -43,14 +43,10 @@ public class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _destinationPoint, Time.deltaTime * _moveSpeed);
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        BallController ballController = other.collider.GetComponent<BallController>();
-        bool isPlayer = ballController!=null;
+    
 
-        if (isPlayer)
-        {
-            ballController.Die();
-        }
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

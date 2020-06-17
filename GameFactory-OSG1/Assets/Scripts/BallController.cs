@@ -57,6 +57,29 @@ public class BallController : MonoBehaviour
    private void OnCollisionEnter(Collision other)
    {
       isGrounded = true;
+      bool hasCollidedWithEnemy = other.collider.GetComponent<Enemy>();
+      //bool isTopOfEnemy = false;
+      
+      if (hasCollidedWithEnemy)
+      {
+         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+         {
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            bool isOnTopOfEnemy = enemy != null;
+            if (isOnTopOfEnemy)
+            {
+               enemy.Die();
+            }
+            else
+            {
+               Die();
+            }
+            //hit.collider.GetComponent<Enemy>()?.EnemyDie();
+         }
+         Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.blue, 3f);
+      }
+
+      //bool killEnemy = isTopOfEnemy && hasCollidedWithEnemy;
    }
 
    private void OnCollisionExit(Collision other)
@@ -75,7 +98,7 @@ public class BallController : MonoBehaviour
       }
    }
 
-   public void Die()
+   private void Die()
    {
       //Destroy(gameObject);
 
