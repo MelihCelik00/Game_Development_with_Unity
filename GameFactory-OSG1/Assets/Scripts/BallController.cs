@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallController : MonoBehaviour
 {
@@ -76,8 +77,23 @@ public class BallController : MonoBehaviour
 
    public void Die()
    {
-      Destroy(gameObject);
+      //Destroy(gameObject);
+
+      StartCoroutine(ChangeScene());
+
+      GetComponent<MeshRenderer>().enabled=false;
+      //Invoke(nameof(ChangeScene),1f);
    }
+   
+   private IEnumerator ChangeScene()
+   {
+      yield return new WaitForSeconds(1f);
+        
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+   }
+   
+   
    /*
    private void SpawnAgain(Vector3 x, Vector3 y)
    {
