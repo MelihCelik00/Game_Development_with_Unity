@@ -8,10 +8,16 @@ public class ScoreManager : MonoBehaviour
     private Text _scoreText;
         
     private int _score;
+    private const string keyString = "Score";
 
     private void Awake()
     {
-        _score = PlayerPrefs.GetInt("Score");
+        _score = PlayerPrefs.GetInt(keyString);
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
         _scoreText.text = _score.ToString("N0");
     }
 
@@ -20,8 +26,8 @@ public class ScoreManager : MonoBehaviour
     {
         _score += amount;
 
-        _scoreText.text = _score.ToString();
+        UpdateScoreText();
         
-        PlayerPrefs.SetInt("Score",_score);
+        PlayerPrefs.SetInt(keyString, _score);
     }
 }

@@ -57,28 +57,11 @@ public class BallController : MonoBehaviour
    private void OnCollisionEnter(Collision other)
    {
       isGrounded = true;
-      bool hasCollidedWithEnemy = other.collider.GetComponent<Enemy>();
-      //bool isTopOfEnemy = false;
       
-      if (hasCollidedWithEnemy)
-      {
-         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
-         {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
-            bool isOnTopOfEnemy = enemy != null;
-            if (isOnTopOfEnemy)
-            {
-               enemy.Die();
-            }
-            else
-            {
-               Die();
-            }
-            //hit.collider.GetComponent<Enemy>()?.EnemyDie();
-         }
-         Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.blue, 3f);
-      }
-
+      
+      CheckEnemyCollision(other);
+      //hit.collider.GetComponent<Enemy>()?.EnemyDie();
+      //Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.blue, 3f);
       //bool killEnemy = isTopOfEnemy && hasCollidedWithEnemy;
    }
 
@@ -102,33 +85,29 @@ public class BallController : MonoBehaviour
    {
       //Destroy(gameObject);
 
-      StartCoroutine(ChangeScene());
-
+      FindObjectOfType<LevelManager>().RestartScene();
       GetComponent<MeshRenderer>().enabled=false;
       //Invoke(nameof(ChangeScene),1f);
    }
-   
-   private IEnumerator ChangeScene()
+
+   private void CheckEnemyCollision(Collision collision)
    {
-      yield return new WaitForSeconds(1f);
-        
-      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
-   }
-   
-   
-   /*
-   private void SpawnAgain(Vector3 x, Vector3 y)
-   {
-      if (_rigidbody.transform.position.y > -10)
-      {
+      bool hasCollidedWithEnemy = collision.collider.GetComponent<Enemy>();
+      //bool isTopOfEnemy = false;
+
+      if (hasCollidedWithEnemy)
          return;
-      }
-      else
+      if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
       {
-         _rigidbody
+         Enemy enemy = hit.collider.GetComponent<Enemy>();
+         bool isOnTopOfEnemy = enemy != null;
+         if (isOnTopOfEnemy)
+         {
+            enemy.Die();
+            return;
+         }
+         Die();
       }
    }
-   */
    
 }

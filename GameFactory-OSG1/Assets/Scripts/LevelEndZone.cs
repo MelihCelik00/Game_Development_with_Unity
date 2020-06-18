@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class LevelEndZone : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class LevelEndZone : MonoBehaviour
     {
         if (other.GetComponent<BallController>()!=null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            FindObjectOfType<LevelManager>().NextLevel();
         }
     }
     
