@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     private Vector3 _minPatrolPosition;
     private Vector3 _maxPatrolPosition;
     private Vector3 _destinationPoint;
+
+    private GameObject _goldPrefab;
     private void Awake()
     {
         _initialPosition = transform.position;
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
         _maxPatrolPosition = _initialPosition + Vector3.right * _patrolRange;
 
         SetDestination(_maxPatrolPosition);
+        LoadGoldFromResources();
     }
 
     private void SetDestination(Vector3 destination)
@@ -43,10 +46,14 @@ public class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _destinationPoint, Time.deltaTime * _moveSpeed);
     }
 
-    
+    private void LoadGoldFromResources()
+    {
+        _goldPrefab = Resources.Load<GameObject>("Coin");
+    }
 
     public void Die()
     {
+        Instantiate(_goldPrefab, transform.position,transform.rotation);
         Destroy(gameObject);
     }
 }
