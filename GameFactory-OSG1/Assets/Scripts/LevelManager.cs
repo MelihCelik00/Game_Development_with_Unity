@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public void RestartScene()
     {
+        Debug.Log("Restarting SCENE!");
         StartCoroutine(RestartSceneCoroutine());
     }
 
@@ -22,11 +23,13 @@ public class LevelManager : MonoBehaviour
 
     private void LoadScene(int buildIndex)
     {
+        Debug.Log("Entered LoadScene method!");
         SceneManager.LoadScene(buildIndex);
     }
 
     private int GetActiveSceneIndex()
     {
+        Debug.Log("Get Active Build Index!");
         return SceneManager.GetActiveScene().buildIndex;
     }
     

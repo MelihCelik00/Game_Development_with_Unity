@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
    [SerializeField]
    private float _moveSpeed = 1f;
-   private float _jumpSpeed = 10f;
+   private float _jumpSpeed = 8f;
 
    private bool isGrounded;
    private Rigidbody _rigidbody;
@@ -58,7 +54,6 @@ public class BallController : MonoBehaviour
    {
       isGrounded = true;
       
-      
       CheckEnemyCollision(other);
       //hit.collider.GetComponent<Enemy>()?.EnemyDie();
       //Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.blue, 3f);
@@ -80,34 +75,44 @@ public class BallController : MonoBehaviour
          collectable.Collect();   
       }
    }
-
-   private void Die()
-   {
-      //Destroy(gameObject);
-
-      FindObjectOfType<LevelManager>().RestartScene();
-      GetComponent<MeshRenderer>().enabled=false;
-      //Invoke(nameof(ChangeScene),1f);
-   }
-
+   
    private void CheckEnemyCollision(Collision collision)
    {
       bool hasCollidedWithEnemy = collision.collider.GetComponent<Enemy>();
       //bool isTopOfEnemy = false;
 
-      if (hasCollidedWithEnemy)
+      if (!hasCollidedWithEnemy)
+      {
+         //Debug.Log("!HAS_COLLIDED_WITH_ENEMY");
          return;
+      }
+
       if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
       {
          Enemy enemy = hit.collider.GetComponent<Enemy>();
          bool isOnTopOfEnemy = enemy != null;
+         //Debug.Log("IS ON TOP OF ENEMY???: "+isOnTopOfEnemy);
          if (isOnTopOfEnemy)
          {
+            //Debug.Log("Enemy DIEEEE"); IT WORKS
             enemy.Die();
             return;
          }
+         //Debug.Log("SELF DIEEEEEEEEEE");
          Die();
       }
    }
+   
+   private void Die()
+   {
+      Destroy(gameObject);
+
+      LevelManager lm = gameObject.AddComponent<LevelManager>();
+      lm.RestartScene();
+      GetComponent<MeshRenderer>().enabled=false;
+      //Invoke(nameof(ChangeScene),1f);
+   }
+
+   
    
 }
