@@ -23,13 +23,13 @@ public class LevelManager : MonoBehaviour
 
     private void LoadScene(int buildIndex)
     {
-        Debug.Log("Entered LoadScene method!");
+        //Debug.Log("Entered LoadScene method!");
         SceneManager.LoadScene(buildIndex);
     }
 
     private int GetActiveSceneIndex()
     {
-        Debug.Log("Get Active Build Index!");
+        //Debug.Log("Get Active Build Index!");
         return SceneManager.GetActiveScene().buildIndex;
     }
     

@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - CameraFollower
     - Collectable
     - Enemy
+    - Floor
     - LevelEndZone
     - LevelManager
     - ScoreManager
@@ -62,21 +63,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 11496}
+      Script: {instanceID: 11454}
     - Class: 114
-      Script: {instanceID: 11502}
+      Script: {instanceID: 11498}
     - Class: 114
-      Script: {instanceID: 11734}
+      Script: {instanceID: 11504}
     - Class: 114
-      Script: {instanceID: 12110}
+      Script: {instanceID: 11736}
     - Class: 114
-      Script: {instanceID: 12584}
+      Script: {instanceID: 12112}
     - Class: 114
-      Script: {instanceID: 12834}
+      Script: {instanceID: 12586}
     - Class: 114
-      Script: {instanceID: 12872}
+      Script: {instanceID: 12836}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 12874}
+    - Class: 114
+      Script: {instanceID: 12938}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -135,19 +138,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 11496}
+      Script: {instanceID: 11498}
     - Class: 114
-      Script: {instanceID: 11502}
+      Script: {instanceID: 11504}
     - Class: 114
-      Script: {instanceID: 11734}
+      Script: {instanceID: 11736}
     - Class: 114
-      Script: {instanceID: 12110}
+      Script: {instanceID: 12112}
     - Class: 114
-      Script: {instanceID: 12584}
+      Script: {instanceID: 12586}
     - Class: 114
-      Script: {instanceID: 12834}
+      Script: {instanceID: 12836}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 12938}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -283,6 +286,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Floor
   - hash:
       serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
@@ -635,4 +644,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Level1.unity
   - Assets/Scenes/Level2.unity
-  playerPath: /Users/melihsafacelik/Projects/Unity/Build/RollersPlatform/RollersPlatforms.exe
+  playerPath: /Users/melihsafacelik/Projects/Unity/Build/LastBuild/RollersPlatforms.exe

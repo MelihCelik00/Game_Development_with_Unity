@@ -55,11 +55,34 @@ public class BallController : MonoBehaviour
       isGrounded = true;
       
       CheckEnemyCollision(other);
+      FallChecker(other);
       //hit.collider.GetComponent<Enemy>()?.EnemyDie();
       //Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.blue, 3f);
       //bool killEnemy = isTopOfEnemy && hasCollidedWithEnemy;
    }
+   
+   private void FallChecker(Collision sth)
+   {
+      bool hasCollidedWithEnemy = sth.collider.GetComponent<Floor>();
+      //bool isTopOfEnemy = false;
 
+      if (!hasCollidedWithEnemy)
+      {
+         //Debug.Log("!HAS_COLLIDED_WITH_ENEMY");
+         return;
+      }
+      if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+      {
+         Floor enemy = hit.collider.GetComponent<Floor>();
+         bool isOnTopOfEnemy = enemy != null;
+         //Debug.Log("IS ON TOP OF ENEMY???: "+isOnTopOfEnemy);
+         if (isOnTopOfEnemy)
+         {
+            Die();
+         }
+      }
+   }
+   
    private void OnCollisionExit(Collision other)
    {
       isGrounded = false;
@@ -107,12 +130,8 @@ public class BallController : MonoBehaviour
    {
       Destroy(gameObject);
 
-      LevelManager lm = gameObject.AddComponent<LevelManager>();
-      lm.RestartScene();
+      FindObjectOfType<LevelManager>().RestartScene();
       GetComponent<MeshRenderer>().enabled=false;
       //Invoke(nameof(ChangeScene),1f);
    }
-
-   
-   
 }
