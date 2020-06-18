@@ -59,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BallController.cs" />
+     <Compile Include="Assets\Scripts\CameraFollower.cs" />
+     <Compile Include="Assets\Scripts\Collectable.cs" />
+     <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\LevelEndZone.cs" />
+     <Compile Include="Assets\Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\ScoreManager.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/melihsafacelik/Projects/Unity/GameFactory-OSG1/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
