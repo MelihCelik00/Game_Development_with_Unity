@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+guid: a77904a10d201934ba409de894d7aa38
+=======
+<<<<<<<< HEAD:Assets/Scripts/Enemy/Enemy.cs.meta
+guid: cfc84b62c4ef04539af7fadd63aec747
+========
+guid: 351aaf020feac4340945c82cad5b8958
+>>>>>>>> 399fc6581f4590bbad2e76d0178846d1fb4639ec:Assets/Scripts/Deneme.cs.meta
+>>>>>>> 399fc6581f4590bbad2e76d0178846d1fb4639ec
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -14,11 +14,11 @@ public class Player : MonoBehaviour, IDie
     [SerializeField] private GameObject gunPrefab;
 
     private bool Armed = false;
-
-    private void Start()
+    private void Awake()
     {
         SpawnGun();
     }
+
 
     public void TakeDamage(float damage)
     {
@@ -29,6 +29,11 @@ public class Player : MonoBehaviour, IDie
     {
         Transform hand = GameObject.Find("Hand").transform;
         weapon = Instantiate(gunPrefab, hand.position, hand.rotation, hand).GetComponent<Weapon>();
+    }
+
+    private void SearchEnemy()
+    {
+
     }
 
 }

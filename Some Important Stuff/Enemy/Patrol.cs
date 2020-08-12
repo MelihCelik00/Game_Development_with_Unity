@@ -18,6 +18,8 @@ public class Patrol : MonoBehaviour
     [SerializeField] private float minZ;
     [SerializeField] private float maxZ;
 
+    private Animator anims;
+
     
     private EnemyController enemyController;
 
@@ -26,8 +28,11 @@ public class Patrol : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         waitTime = startWaitTime;
         agent = GetComponent<NavMeshAgent>();
+        anims = GetComponentInChildren<Animator>();
+
         //SetNewPoint();
         SetNewRandomPoint();
+        
     }
     
     private void Update()
@@ -66,8 +71,12 @@ public class Patrol : MonoBehaviour
 
     private void DoPatrol()
     {
+        agent.speed = 1;
         //transform.position = Vector3.MoveTowards(transform.position, patrolMovePoints[randomSpot].position, agent.speed * Time.deltaTime); // For the set of point
         transform.position = Vector3.MoveTowards(transform.position, moveSpot.position, agent.speed * Time.deltaTime); // For the random points in the area
+        agent.transform.LookAt(moveSpot.transform.position);
+        anims.SetBool("ifAttack",false);
+        anims.SetFloat("Movement",1);
     }
     
     /*

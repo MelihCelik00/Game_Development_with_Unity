@@ -16,28 +16,48 @@ public class EnemyController : MonoBehaviour
     public bool NotInArea = false;
 
     public bool isActive = false;
+    
+    private Animator anims;
+
+    private EnemyAnim enemyAnimations;
     private void Start()
     {
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
+        enemyAnimations = FindObjectOfType<EnemyAnim>();
+
+        anims = GetComponentInChildren<Animator>();
     }
 
     private void Update() // bool döndür patrol scriptine yolla
     {
         float distance = Vector3.Distance(target.position, transform.position);
-        
-        if (distance <= attackDistance)
+
+        if (distance <= 2f)
+        {
+            Attack();
+        }
+        else if (distance <= attackDistance)
         {
             isActive = true;
             FollowPlayer();
             NotInArea = false;
-            if (distance <= agent.stoppingDistance) 
+        }
+
+            /*
+            if (distance == agent.stoppingDistance)
             {
                 // Attack the target
                 // Face the target
-                FaceTarget();  // IT WORKS!
+                //FaceTarget(); // IT WORKS!
+                if (distance <= 2f)
+                {
+                    //Attack();
+
+                }
             }
-        }
+            */
+            
         if (distance > attackDistance)
         {
             NotInArea = true;
@@ -53,12 +73,22 @@ public class EnemyController : MonoBehaviour
 
     public void FollowPlayer() // Enemy does not follow Player. Fix it!
     {
+        anims.SetBool("ifAttack",false);
+        anims.SetFloat("Movement", 2);
+        agent.speed = 3;
         //agent.SetDestination(target.position);
         //agent.destination = target.position;
         agent.transform.position = Vector3.MoveTowards(agent.transform.position, target.position, agent.speed * Time.deltaTime);
+        FaceTarget();
+        //transform.LookAt(target.transform.position);
+
     }
-    
-    public void Attack(){}
+
+    public void Attack()
+    {
+        anims.SetBool("ifAttack", true);
+        
+    }
 
     private void OnDrawGizmosSelected()
     {
