@@ -16,13 +16,16 @@ public class EnemyController : MonoBehaviour
     public bool NotInArea = false;
 
     public bool isActive = false;
-    
+
     private Animator anims;
 
     private EnemyAnim enemyAnimations;
+
+    public bool MenzilCheck = false;//temporary variable
+    
     private void Start()
     {
-        target = PlayerManager.instance.player.transform;
+        target = PlayerManager.instance.player.transform; // Initialization
         agent = GetComponent<NavMeshAgent>();
         enemyAnimations = FindObjectOfType<EnemyAnim>();
 
@@ -33,31 +36,61 @@ public class EnemyController : MonoBehaviour
     {
         float distance = Vector3.Distance(target.position, transform.position);
 
-        if (distance <= 2f)
+        if (distance == agent.stoppingDistance)
         {
+            agent.Stop();
+            Attack();
+        }else if (distance <= attackDistance)
+        {
+            
+        }
+        
+        ////////////////
+        /*
+        if (distance <= attackDistance)
+        {
+            FollowPlayer();
+            MenzilCheck = true;
+            if (distance <= agent.stoppingDistance)
+            {
+                agent.Stop();
+                Attack();
+                
+
+            }
+            FaceTarget();
+        } */ 
+        //////////////
+        
+        /*
+        if (distance == agent.stoppingDistance)
+        {
+            agent.Stop();
             Attack();
         }
-        else if (distance <= attackDistance)
+        else if ( (agent.stoppingDistance < distance) && (distance <= attackDistance))
         {
             isActive = true;
             FollowPlayer();
+            
             NotInArea = false;
         }
-
-            /*
-            if (distance == agent.stoppingDistance)
+        */
+        
+        
+        /*
+        if (distance == agent.stoppingDistance) 
+        {
+            // Attack the target
+            // Face the target
+            //FaceTarget(); // IT WORKS!
+            if (distance <= 2f)
             {
-                // Attack the target
-                // Face the target
-                //FaceTarget(); // IT WORKS!
-                if (distance <= 2f)
-                {
-                    //Attack();
-
-                }
+                //Attack();
             }
-            */
-            
+        }
+        */
+
         if (distance > attackDistance)
         {
             NotInArea = true;
@@ -73,21 +106,22 @@ public class EnemyController : MonoBehaviour
 
     public void FollowPlayer() // Enemy does not follow Player. Fix it!
     {
-        anims.SetBool("ifAttack",false);
+        anims.SetBool("ifAttack", false);
         anims.SetFloat("Movement", 2);
-        agent.speed = 3;
+        agent.speed = 5;
         //agent.SetDestination(target.position);
         //agent.destination = target.position;
         agent.transform.position = Vector3.MoveTowards(agent.transform.position, target.position, agent.speed * Time.deltaTime);
-        FaceTarget();
-        //transform.LookAt(target.transform.position);
-
+        //FaceTarget();
+        transform.LookAt(target.transform.position);
     }
 
     public void Attack()
     {
         anims.SetBool("ifAttack", true);
-        
+        anims.SetFloat("Movement", 0);
+        float damage = 1;
+        target.GetComponent<Player>().TakeDamage(damage);
     }
 
     private void OnDrawGizmosSelected()
@@ -95,5 +129,5 @@ public class EnemyController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
-    
+
 }

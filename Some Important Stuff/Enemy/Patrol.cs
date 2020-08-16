@@ -6,12 +6,12 @@ using Random = UnityEngine.Random;
 public class Patrol : MonoBehaviour
 {
     //public Transform[] patrolMovePoints;
-    public Transform moveSpot;
-    private int randomSpot;
+    //public Transform moveSpot;
+    //private int randomSpot;
 
-    private NavMeshAgent agent;
-    private float waitTime;
-    public float startWaitTime;
+    public NavMeshAgent agent;
+    //private float waitTime;
+    //public float startWaitTime;
 
     [SerializeField] private float minX;
     [SerializeField] private float maxX;
@@ -20,19 +20,21 @@ public class Patrol : MonoBehaviour
 
     private Animator anims;
 
-    
+    [SerializeField] private GameObject newPointObject;
+    private GameObject newObject;
+
     private EnemyController enemyController;
 
     private void Start()
     {
+        
         enemyController = GetComponent<EnemyController>();
-        waitTime = startWaitTime;
+        //waitTime = startWaitTime;
         agent = GetComponent<NavMeshAgent>();
         anims = GetComponentInChildren<Animator>();
 
-        //SetNewPoint();
-        SetNewRandomPoint();
-        
+        //Set New Point
+        InstantiateNewPoint();
     }
     
     private void Update()
@@ -40,22 +42,20 @@ public class Patrol : MonoBehaviour
         if (enemyController.NotInArea)
         {
             PatrolAutomation();
-
-            if (enemyController.isActive = true)
-            {
-                agent.Stop();
-                
-            }
         }
     }
+
+    private NavMeshSurface surface;
 
     public void PatrolAutomation()
     {
         DoPatrol();
 
         //if (Vector3.Distance(transform.position, patrolMovePoints[randomSpot].position) < 2f)
-        if(Vector3.Distance(transform.position, moveSpot.position) < 2f)
+        if(Vector3.Distance(transform.position, newObject.transform.position) < 4f)
         {
+            SetNewRandomPoint();
+            /*
             if (waitTime<= 0)
             {
                 //SetNewPoint();
@@ -66,17 +66,31 @@ public class Patrol : MonoBehaviour
             {
                 waitTime -= Time.deltaTime;
             }
+            */
         }
     }
 
     private void DoPatrol()
     {
-        agent.speed = 1;
+        agent.speed = 3;
         //transform.position = Vector3.MoveTowards(transform.position, patrolMovePoints[randomSpot].position, agent.speed * Time.deltaTime); // For the set of point
-        transform.position = Vector3.MoveTowards(transform.position, moveSpot.position, agent.speed * Time.deltaTime); // For the random points in the area
-        agent.transform.LookAt(moveSpot.transform.position);
+        //transform.position = Vector3.MoveTowards(transform.position, newObject.transform.position, agent.speed * Time.deltaTime); // For the random points in the area
+        //agent.SetDestination(newObject.transform.position);
+        //agent.transform.LookAt(newObject.transform.position);
         anims.SetBool("ifAttack",false);
         anims.SetFloat("Movement",1);
+    }
+
+    public void SetNewRandomPoint()
+    {
+        newObject.transform.position = new Vector3(Random.Range(minX,maxX), 0, Random.Range(minZ,maxZ));
+    }
+    
+    private void InstantiateNewPoint()
+    {
+        Vector3 newPos = new Vector3(Random.Range(minX,maxX), 0, Random.Range(minZ,maxZ));
+        newObject = Instantiate(newPointObject, newPos, Quaternion.identity);
+        
     }
     
     /*
@@ -86,8 +100,9 @@ public class Patrol : MonoBehaviour
     }
     */
     
-    public void SetNewRandomPoint()
-    {
-        moveSpot.position = new Vector3(Random.Range(minX,maxX), 0, Random.Range(minZ,maxZ));
-    }
+    //
+    //
+    // Surface'da bake edilen yerlere waypoint atamayacak bi method yazılacak!
+    //
+    //
 }
