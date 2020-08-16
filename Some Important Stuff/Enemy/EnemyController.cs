@@ -34,17 +34,21 @@ public class EnemyController : MonoBehaviour
 
     private void Update() // bool döndür patrol scriptine yolla
     {
-        float distance = Vector3.Distance(target.position, transform.position);
+        //float distance = Vector3.Distance(target.position, transform.position);
 
-        if (distance == agent.stoppingDistance)
+        double distance = CalculateHorizontalDistance();
+        
+        if (distance <= agent.stoppingDistance)
         {
             agent.Stop();
             Attack();
+            FaceTarget();
         }else if (distance <= attackDistance)
         {
-            
+            FollowPlayer();
+            agent.transform.LookAt(target.position);
         }
-        
+
         ////////////////
         /*
         if (distance <= attackDistance)
@@ -128,6 +132,17 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
+    }
+
+    private double CalculateHorizontalDistance()
+    {
+        float xDistance = target.position.x - transform.position.x;
+        float zDistance = target.position.z - transform.position.z;
+        
+        
+        double distance = Math.Sqrt( (xDistance * xDistance) + (zDistance * zDistance) );
+
+        return distance;
     }
 
 }

@@ -39,14 +39,16 @@ public class Patrol : MonoBehaviour
     
     private void Update()
     {
+        //Debug.Log("Enemy is in area?");
+        //Debug.Log(enemyController.NotInArea);
+        
         if (enemyController.NotInArea)
         {
             PatrolAutomation();
         }
+        
     }
-
-    private NavMeshSurface surface;
-
+    
     public void PatrolAutomation()
     {
         DoPatrol();
@@ -77,6 +79,7 @@ public class Patrol : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, newObject.transform.position, agent.speed * Time.deltaTime); // For the random points in the area
         //agent.SetDestination(newObject.transform.position);
         //agent.transform.LookAt(newObject.transform.position);
+        agent.destination = newObject.transform.position;
         anims.SetBool("ifAttack",false);
         anims.SetFloat("Movement",1);
     }
