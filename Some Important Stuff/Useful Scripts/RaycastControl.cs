@@ -75,7 +75,7 @@ public class RaycastControl : MonoBehaviour
             _gameObject.tag = "oldNuc";
         }
 
-        FindObjectOfType<AudioManager>()._AudioSource.PlayOneShot(FindObjectOfType<AudioManager>()._AudioSource.clip, FindObjectOfType<AudioManager>().volume);
+        FindObjectOfType<AudioManager>()._AudioSource.PlayOneShot(FindObjectOfType<AudioManager>()._matchAudio, FindObjectOfType<AudioManager>().Volume);
 
     }
 }
