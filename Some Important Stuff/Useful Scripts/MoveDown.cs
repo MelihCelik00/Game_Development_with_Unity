@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MoveDown : MonoBehaviour
 {
@@ -15,7 +8,5 @@ public class MoveDown : MonoBehaviour
     private void FixedUpdate()
     {
         transform.position += Vector3.down * (Time.deltaTime * FindObjectOfType<ObjectSpawner>().FallSpeed);
-        
-        
     }
 }

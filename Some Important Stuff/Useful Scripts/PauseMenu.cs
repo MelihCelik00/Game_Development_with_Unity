@@ -22,7 +22,11 @@ public class PauseMenu : MonoBehaviour
         GetLang = PlayerPrefs.GetInt(GameLanguage);
         if (life==0) // Lose round here and set lose menu active
         {
-            PlayerPrefs.SetInt(LastScore, FindObjectOfType<ScoreManager>().Score); // To find high score!
+            if (FindObjectOfType<ScoreManager>().Score > PlayerPrefs.GetInt(LastScore))
+            {
+                PlayerPrefs.SetInt(LastScore, FindObjectOfType<ScoreManager>().Score); // To find high score!
+            }
+            
             if (GetLang==1)
             {
                 loseMenuEnglish.SetActive(true);
@@ -131,5 +135,4 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-    
 }
